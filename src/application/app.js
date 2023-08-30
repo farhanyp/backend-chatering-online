@@ -3,7 +3,6 @@
     import { publicApi } from "../routes/public-api.js";
     import { apiRouter } from '../routes/api.js';
     import { errorMiddleware } from '../middleware/error-middleware.js'
-    import bodyParser from 'body-parser';
 
     export const app = express();
     mongoose.connect('mongodb://localhost:27017/db_catering_online', { useNewUrlParser: true, useUnifiedTopology: true})
@@ -17,7 +16,6 @@
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
-    app.use(bodyParser.json({ limit: '1024mb' }))
 
     app.use((req, res, next) => {
         res.setHeader('Access-Control-Allow-Origin', '*');

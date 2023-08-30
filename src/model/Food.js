@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+const { ObjectId } = mongoose.Schema;
 
 const foodSchema = new mongoose.Schema({
     dataImage:{
@@ -25,6 +26,10 @@ const foodSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
+    relations: [{ 
+        type: ObjectId, 
+        ref: 'Relation' 
+    }]
 })
 
 const Food = mongoose.model("Food", foodSchema)

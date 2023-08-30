@@ -1,9 +1,12 @@
 import mongoose from "mongoose"
-import { logger } from "../application/logger";
-import { User } from "../model/User";
-import { Image } from "../model/Image";
-import { Food } from "../model/Food";
+import { logger } from "../application/logger.js";
+import { User } from "../model/User.js";
+import { Image } from "../model/Image.js";
+import { Food } from "../model/Food.js";
 import path from 'path'
+import { Drink } from "../model/Drink.js";
+import { Relation } from "../model/RelationFoodDrinksPackage.js";
+import { Package } from "../model/Package.js";
 
 export const connectMongoDB = async () => {
 
@@ -75,6 +78,7 @@ export const createFood = async () => {
 }
 }
 
+
 export const createOneFood = async () => {
     
     await Food.create({
@@ -93,4 +97,56 @@ export const getOneFood = async () => {
 
 export const deleteFood = async () => {
     return Food.deleteMany()
+}
+
+
+export const createDrink = async () => {
+    const sampleImagePaths = [
+        "sample1.jpg",
+        "sample2.jpg",
+        "sample3.jpg",
+        "sample4.jpg",
+        "sample5.jpg",
+    ];
+      
+    for (const imagePath of sampleImagePaths) {;
+
+        await Drink.create({
+            dataImage: path.join(__dirname, "sample.jpeg"),
+            typeImage: "image/jpeg",
+            name: `Sample Drink ${sampleImagePaths.indexOf(imagePath) + 1}`,
+            qty: 1,
+            price: 1000,
+            description: "This is a sample drink item.",
+    });
+}
+}
+
+
+export const createOneDrink = async () => {
+    
+    await Drink.create({
+        dataImage: path.join(__dirname, "sample.jpeg"),
+        typeImage: "image/jpeg",
+        name: `Sample Drink 1`,
+        qty: 1,
+        price: 1000,
+        description: "This is a sample drink item.",
+    });
+}
+
+export const getOneDrink = async () => {
+    return Drink.findOne()
+}
+
+export const deleteDrink = async () => {
+    return Drink.deleteMany()
+}
+
+export const deletePackage = async () => {
+    return Package.deleteMany()
+}
+
+export const deleteRelation = async () => {
+    return Relation.deleteMany()
 }
