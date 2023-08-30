@@ -38,9 +38,7 @@ describe('POST /api/v1/admin/package/create', () => {
         .field("drinkId", getTestDrink.id)
 
         expect(result.status).toBe(200)
-        expect(result.body.data.package).toBeDefined()
-        expect(result.body.data.drink).toBeDefined()
-        expect(result.body.data.food).toBeDefined()
+        expect(result.body.data.relations).toBeDefined()
     })
     
 })

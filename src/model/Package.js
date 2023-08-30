@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+const { ObjectId } = mongoose.Schema;
 
 const packageSchema = new mongoose.Schema({
   dataImage:{
@@ -21,6 +22,10 @@ typeImage:{
     type: String,
     required: false
   },
+  relations: [{ 
+    type: ObjectId, 
+    ref: 'Relation' 
+}]
 });
 
 const Package = mongoose.model('Package', packageSchema);

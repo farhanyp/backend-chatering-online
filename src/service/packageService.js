@@ -20,6 +20,7 @@ const create = async (username, request)=>{
 
     const food = await Food.findOne({_id: createPackageRequest.foodId})
     const drink = await Drink.findOne({_id: createPackageRequest.drinkId})
+    const newPackages = await Package.findOne({_id: packages.id})
 
      const relation  = await Relation.create({
         package: packages.id,
@@ -33,7 +34,10 @@ const create = async (username, request)=>{
     drink.relations.push(relation._id)
     drink.save()
 
-    return relation
+    newPackages.relations.push(relation._id)
+    newPackages.save()
+
+    return newPackages
 
 }
 
