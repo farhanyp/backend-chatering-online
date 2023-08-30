@@ -26,7 +26,7 @@ const login = async(request) => {
 
     await User.updateOne({username: user.username}, {token: token})
 
-    return User.findOne({username: "admin-salon-hewan-admin"}).select('token')
+    return User.findOne({username: user.username}).select('role').select('token')
 }
 
 
@@ -38,6 +38,9 @@ const register = async(request) => {
     if(user){
         throw new ResponseError(401, "Username sudah dipakai");
     }
+
+    const token = uuid().toString()
+    registerRequest.token = token
 
     return User.create(registerRequest)
 
