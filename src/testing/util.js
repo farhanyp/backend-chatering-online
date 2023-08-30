@@ -4,22 +4,21 @@ import { User } from "../model/User";
 
 export const connectMongoDB = async () => {
 
-    // const DB_URL = 'mongodb://127.0.0.1:27017/db_salon_hewan';
-    //     mongoose.connect(DB_URL, { useNewUrlParser: true, useUnifiedTopology: true})
-    //     .then(() => {
-    //         console.log('Connected to MongoDB')
-    //     })
-    //     .catch((err) => {
-    //         console.error('Error connecting to MongoDB:', err)
-    //     });
-
-    mongoose.connect('mongodb://localhost:27017/db_salon_hewan', { useNewUrlParser: true, useUnifiedTopology: true})
+    mongoose.connect('mongodb+srv://farhanyp:945921@cluster0.av5vcrp.mongodb.net/db_catering_online', { useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
             console.log('Connected to MongoDB')
         })
         .catch((err) => {
             console.error('Error connecting to MongoDB:', err)
         });
+
+    // mongoose.connect('mongodb://localhost:27017/db_salon_hewan', { useNewUrlParser: true, useUnifiedTopology: true})
+    //     .then(() => {
+    //         console.log('Connected to MongoDB')
+    //     })
+    //     .catch((err) => {
+    //         console.error('Error connecting to MongoDB:', err)
+    //     });
 
 }
 
