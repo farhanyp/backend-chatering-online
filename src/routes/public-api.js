@@ -1,7 +1,5 @@
 import express from 'express'
 import userController from '../controller/userController.js'
-import { logger } from '../application/logger.js'
-import { Image } from '../model/Image.js'
 import { upload } from '../middleware/multer-middleware.js'
 import foodController from '../controller/foodController.js'
 import drinkController from '../controller/drinkController.js'

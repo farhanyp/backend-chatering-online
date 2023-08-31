@@ -24,7 +24,7 @@
         next();
     });
 
-    publicApi.get('/', (req, res) => {
+    app.get('/', (req, res) => {
         res.send('public api!')
     })
 
