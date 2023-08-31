@@ -5,6 +5,7 @@ import drinkController from '../controller/drinkController.js'
 import packageController from '../controller/packageController.js'
 import BankController from '../controller/bankController.js'
 import { upload } from '../middleware/multer-middleware.js'
+import orderController from '../controller/orderController.js'
 
 const apiRouter = new express.Router()
 
@@ -25,6 +26,8 @@ apiRouter.delete('/package/:packageId', packageController.remove)
 apiRouter.post('/bank/create', BankController.create)
 apiRouter.patch('/bank/:bankId', BankController.update)
 apiRouter.delete('/bank/:bankId', BankController.remove)
+
+apiRouter.get('/order', orderController.get)
 
 export {
     apiRouter

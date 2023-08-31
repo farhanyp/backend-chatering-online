@@ -8,6 +8,7 @@ import { Drink } from "../model/Drink.js";
 import { Relation } from "../model/RelationFoodDrinksPackage.js";
 import { Package } from "../model/Package.js";
 import { Bank } from "../model/Bank.js";
+import { Order } from "../model/Order.js";
 
 export const connectMongoDB = async () => {
 
@@ -86,8 +87,8 @@ export const createOneFood = async () => {
         dataImage: path.join(__dirname, "sample.jpeg"),
         typeImage: "image/jpeg",
         name: `Sample Food 1`,
-        qty: 1,
-        price: 1000,
+        qty: 5,
+        price: 10000,
         description: "This is a sample food item.",
     });
 }
@@ -130,8 +131,8 @@ export const createOneDrink = async () => {
         dataImage: path.join(__dirname, "sample.jpeg"),
         typeImage: "image/jpeg",
         name: `Sample Drink 1`,
-        qty: 1,
-        price: 1000,
+        qty: 5,
+        price: 5000,
         description: "This is a sample drink item.",
     });
 }
@@ -222,4 +223,8 @@ export const getOneBank = async () => {
 
 export const deleteBank = async () => {
     return Bank.deleteMany();
+}
+
+export const deleteOrder = async () => {
+    return Order.deleteMany();
 }
