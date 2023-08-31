@@ -51,18 +51,6 @@ const update = async (username, drinkId, request) => {
         throw new ResponseError(404, "Food not found");
     }
 
-    // if (request.categoryId) {
-    //     if(product.categoryId != updateRequest.categoryId){
-
-    //         await Category.updateOne({_id: product.categoryId}, {$pull:{productId: productId}})
-
-    //         await Category.updateOne({_id: request.categoryId}, {$push:{productId: productId}})
-
-    //     }
-
-    //     data.categoryId = updateRequest.categoryId;
-    // } 
-
     await Drink.findByIdAndUpdate(drinkId, data)
 
     return await Drink.findOne({

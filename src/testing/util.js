@@ -81,7 +81,7 @@ export const createFood = async () => {
 
 export const createOneFood = async () => {
     
-    await Food.create({
+    return Food.create({
         dataImage: path.join(__dirname, "sample.jpeg"),
         typeImage: "image/jpeg",
         name: `Sample Food 1`,
@@ -125,7 +125,7 @@ export const createDrink = async () => {
 
 export const createOneDrink = async () => {
     
-    await Drink.create({
+    return Drink.create({
         dataImage: path.join(__dirname, "sample.jpeg"),
         typeImage: "image/jpeg",
         name: `Sample Drink 1`,
@@ -141,6 +141,42 @@ export const getOneDrink = async () => {
 
 export const deleteDrink = async () => {
     return Drink.deleteMany()
+}
+
+export const createPackage = async () => {
+    const sampleImagePaths = [
+        "sample1.jpg",
+        "sample2.jpg",
+        "sample3.jpg",
+        "sample4.jpg",
+        "sample5.jpg",
+    ];
+      
+    for (const imagePath of sampleImagePaths) {;
+
+        await Package.create({
+            dataImage: path.join(__dirname, "sample.jpeg"),
+            typeImage: "image/jpeg",
+            name: `Paket hemat ${sampleImagePaths.indexOf(imagePath) + 1}`,
+            price: 1000,
+            description: "Ini Paket Hemat",
+    });
+}
+}
+
+export const createOnePackage = async () => {
+
+    return Package.create({
+        dataImage: path.join(__dirname, "sample.jpeg"),
+        typeImage: "image/jpeg",
+        name: `Paket hemat 1`,
+        price: 1000,
+        description: "Ini Paket Hemat",
+});
+}
+
+export const getOnePackage = async () => {
+    return Package.findOne()
 }
 
 export const deletePackage = async () => {

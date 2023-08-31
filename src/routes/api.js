@@ -18,6 +18,7 @@ apiRouter.patch('/drink/:drinkId', upload.single("dataImage"), drinkController.u
 apiRouter.delete('/drink/:drinkId', drinkController.remove)
 
 apiRouter.post('/package/create', upload.single("dataImage"), packageController.create)
+apiRouter.patch('/package/:packageId', upload.single("dataImage"), packageController.update)
 
 export {
     apiRouter

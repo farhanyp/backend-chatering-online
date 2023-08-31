@@ -5,6 +5,7 @@ import { Image } from '../model/Image.js'
 import { upload } from '../middleware/multer-middleware.js'
 import foodController from '../controller/foodController.js'
 import drinkController from '../controller/drinkController.js'
+import packageController from '../controller/packageController.js'
 
 const publicApi = new express.Router()
 
@@ -15,6 +16,8 @@ publicApi.post('/register', userController.register)
 publicApi.get('/food', foodController.get)
 
 publicApi.get('/drink', drinkController.get)
+
+publicApi.get('/package', packageController.get)
 
 // publicApi.get('/get-image', async (req, res) => {
 //     const image = await Image.findOne()
