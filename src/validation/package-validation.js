@@ -6,7 +6,7 @@ const createPackageValidation = Joi.object({
     name: Joi.string().max(100).required(),
     price: Joi.string().min(1).required(),
     description: Joi.string().min(1).optional(),
-    foodId: Joi.string().min(1).optional(),
+    foodId: Joi.string().min(1).required(),
     drinkId: Joi.string().min(1).optional(),
 })
 

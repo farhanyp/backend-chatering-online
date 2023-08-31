@@ -116,3 +116,36 @@ describe('PATCH /api/v1/admin/package/:packageId', () => {
     })
     
 })
+
+
+describe('DELETE /api/v1/admin/package/:packageId', () => {
+
+    beforeAll(async () => {
+        await connectMongoDB()
+        // await createOneFood()
+        // await createOneDrink()
+        // await createOnePackage()
+    });
+
+    afterAll(async () => {
+        // await deleteDrink()
+        // await deleteFood()
+        // await deletePackage()
+        // await deleteRelation()
+        // await closedMongoDB()
+    });
+
+    test("Should can create package", async()=>{
+        const getTestAdmin = await getAdmin()
+        const getTestPackage = await getOnePackage()
+        
+        
+        const result =  await supertest(app)
+        .delete('/api/v1/admin/package/'+getTestPackage._id)
+        .set("Authorization", getTestAdmin.token)
+
+        expect(result.status).toBe(200)
+        expect(result.data).toBe("Data sudah dihapus")
+    })
+    
+})

@@ -6,6 +6,7 @@ import { upload } from '../middleware/multer-middleware.js'
 import foodController from '../controller/foodController.js'
 import drinkController from '../controller/drinkController.js'
 import packageController from '../controller/packageController.js'
+import bankController from '../controller/bankController.js'
 
 const publicApi = new express.Router()
 
@@ -18,6 +19,8 @@ publicApi.get('/food', foodController.get)
 publicApi.get('/drink', drinkController.get)
 
 publicApi.get('/package', packageController.get)
+
+publicApi.get('/bank', bankController.get)
 
 // publicApi.get('/get-image', async (req, res) => {
 //     const image = await Image.findOne()

@@ -7,6 +7,7 @@ import path from 'path'
 import { Drink } from "../model/Drink.js";
 import { Relation } from "../model/RelationFoodDrinksPackage.js";
 import { Package } from "../model/Package.js";
+import { Bank } from "../model/Bank.js";
 
 export const connectMongoDB = async () => {
 
@@ -185,4 +186,40 @@ export const deletePackage = async () => {
 
 export const deleteRelation = async () => {
     return Relation.deleteMany()
+}
+
+export const createBank = async () => {
+    const samplename = [
+        "test1",
+        "test2",
+        "test3",
+        "test4",
+        "test5",
+    ];
+      
+    for (const nameTest of samplename) {;
+
+        await Bank.create({
+            name: `${nameTest}`,
+            noRek: 123456,
+            nameBank: 1000,
+    });
+}
+}
+
+export const createOneBank = async () => {
+
+    return Bank.create({
+        name: `Test Bank`,
+        noRek: 123456,
+        nameBank: 1000,
+});
+}
+
+export const getOneBank = async () => {
+    return Bank.findOne()
+}
+
+export const deleteBank = async () => {
+    return Bank.deleteMany();
 }

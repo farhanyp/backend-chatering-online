@@ -29,14 +29,20 @@ const create = async (username, request)=>{
         drink: createPackageRequest.drinkId,
     })
 
-    food.relations.push(relation._id)
-    food.save()
+    if(food){
+        food.relations.push(relation._id)
+        food.save()
+    }
 
-    drink.relations.push(relation._id)
-    drink.save()
+    if(drink){
+        drink.relations.push(relation._id)
+        drink.save()
+    }
 
-    newPackages.relations.push(relation._id)
-    newPackages.save()
+    if(newPackages){
+        newPackages.relations.push(relation._id)
+        newPackages.save()
+    }
 
     return newPackages
 
@@ -142,9 +148,33 @@ const update = async (username, packageId, request) => {
 }
 
 
+const remove = async (packageId) => {
+
+    
+    const packages = await Package.findOne({ _id: packageId }).populate("relations");
+    logger.info(packages)
+    
+    if (!packages) {
+        throw new ResponseError(404, "Package not found");
+    }
+    
+
+    const foodId = packages.relations.map( pack => pack.food)
+    const drinkId = packages.relations.map( pack => pack.drink)
+    const relationsId = packages.relations.map( pack => pack.id)
+
+    await Food.updateOne({_id: foodId}, { $pull: { relations: { $in: relationsId } } });
+    await Drink.updateOne({_id: drinkId}, { $pull: { relations: { $in: relationsId } } });
+    await Package.updateOne({_id: packageId}, { $pull: { relations: { $in: relationsId } } });
+    await Relation.deleteOne({_id: relationsId})
+    await Package.deleteOne({_id: packageId})
+
+}
+
+
 export default{
     create,
     get,
-    update
-
+    update,
+    remove
 }

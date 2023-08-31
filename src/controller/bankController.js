@@ -3,6 +3,7 @@ import ResponseError from "../error/response-error.js";
 import { Relation } from "../model/RelationFoodDrinksPackage.js";
 import { Food } from "../model/Food.js";
 import packageService from "../service/packageService.js";
+import bankService from "../service/bankService.js";
 
 const create = async (req, res, next) => {
     try{
@@ -10,16 +11,11 @@ const create = async (req, res, next) => {
         const user = req.user
         const request = req.body
 
-        if(req.file){
-            request.dataImage = req.file.buffer
-            request.typeImage = req.file.mimetype
-        }
-
         if(user.role === "user"){
             throw new ResponseError(401, "User biasa tidak bisa mengakses")
         }
 
-        const result = await packageService.create(user.username, request)
+        const result = await bankService.create(request)
 
         res.status(200).json({
             data: result
@@ -31,54 +27,31 @@ const create = async (req, res, next) => {
 }
 
 const get = async (req, res, next) => {
-    try {
-        const resultTemp = await packageService.get();
+    try{
 
-        let result = {};
-
-        if (resultTemp.length > 0) {
-            const packagesForRelation = resultTemp.map(a => a.relations);
-
-            const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
-                .populate('package', 'dataImage typeImage name price description')
-                .populate('food', 'dataImage typeImage name qty price description')
-                .populate('drink', 'dataImage typeImage name qty price description');
-
-            result = {
-                packages
-            };
-        } else {
-            result = "data kosong";
-        }
+        const result = await bankService.get()
 
         res.status(200).json({
             data: result
-        });
-    } catch (e) {
-        next(e);
+        })
+
+    }catch(e){
+        next(e)
     }
-};
-
-
+}
 
 const update = async (req, res, next) => {
     try{
 
         const user = req.user
         const request = req.body
-        const packageId = req.params.packageId
-
-        if(req.file){
-            request.dataImage = req.file.buffer
-            request.typeImage = req.file.mimetype
-        }
+        const bankId = req.params.bankId
 
         if(user.role === "user"){
             throw new ResponseError(401, "User biasa tidak bisa mengakses")
         }
 
-        const result = await packageService.update(user.username, packageId, request)
-
+        const result = await bankService.update(bankId, request)
 
         res.status(200).json({
             data: result
@@ -89,27 +62,28 @@ const update = async (req, res, next) => {
     }
 }
 
+
 const remove = async (req, res, next) => {
     try{
 
         const user = req.user
-        const packageId = req.params.packageId
+        const bankId = req.params.bankId
 
         if(user.role === "user"){
             throw new ResponseError(401, "User biasa tidak bisa mengakses")
         }
 
-        const result = await packageService.remove(packageId)
-
+        const result = await bankService.remove(bankId)
 
         res.status(200).json({
-            data: "Data sudah dihapus"
+            data: result
         })
 
     }catch(e){
         next(e)
     }
 }
+
 
 export default{
     create,
