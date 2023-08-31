@@ -1,7 +1,5 @@
     import express from 'express'
     import mongoose from "mongoose"
-    import { publicApi } from "../routes/public-api.js";
-    import { apiRouter } from '../routes/api.js';
     import { errorMiddleware } from '../middleware/error-middleware.js'
 
     export const app = express();
@@ -27,10 +25,6 @@
     app.get('/', (req, res) => {
         res.send('public api!')
     })
-
-    // app.use("/api/v1/member",publicApi)
-    // app.use("/api/v1/admin",apiRouter)
-
 
     app.use(errorMiddleware)
 
