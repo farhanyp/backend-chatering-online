@@ -1,7 +1,7 @@
 import express from 'express'
 import userController from '../controller/userController.js'
 import { upload } from '../middleware/multer-middleware.js'
-// import foodController from '../controller/foodController.js'
+import foodController from '../controller/foodController.js'
 import drinkController from '../controller/drinkController.js'
 import packageController from '../controller/packageController.js'
 import bankController from '../controller/bankController.js'
