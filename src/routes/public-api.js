@@ -25,35 +25,6 @@ publicApi.get('/bank', bankController.get)
 
 publicApi.post('/order', upload.single("dataImage"), orderController.create)
 
-// publicApi.get('/get-image', async (req, res) => {
-//     const image = await Image.findOne()
-
-//     const base64Image = image.data.toString('base64');
-
-//     res.status(200).json({
-//         contentType: image.contentType,
-//         data: base64Image,
-//     });
-
-// })
-
-// publicApi.post('/upload-image', upload.single('image'), async (req, res) => {
-//     if(req.file){
-//         await Image.create({
-//             data: req.file.buffer,
-//             contentType: req.file.mimetype,
-//         })
-
-//         res.status(200).json({
-//             message: "data terkirim"
-//         })
-//     }else{
-//         res.status(200).json({
-//             message: "data tidak terkirim"
-//         })
-//     }
-// })
-
 export {
     publicApi
 }
