@@ -5,13 +5,13 @@
     import { errorMiddleware } from '../middleware/error-middleware.js'
 
     export const app = express();
-    mongoose.connect('mongodb://localhost:27017/db_catering_online', { useNewUrlParser: true, useUnifiedTopology: true})
+    mongoose.connect('mongodb+srv://farhanyp:945921@cluster0.av5vcrp.mongodb.net/db_catering_online', { useNewUrlParser: true, useUnifiedTopology: true})
         .then(() => {
             console.log('Connected to MongoDB')
         })
         .catch((err) => {
             console.error('Error connecting to MongoDB:', err)
-        });
+        })
 
 
     app.use(express.json());
