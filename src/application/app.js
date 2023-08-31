@@ -26,6 +26,10 @@
         res.send('public api!')
     })
 
+    // app.use("/api/v1/member",publicApi)
+    // app.use("/api/v1/admin",apiRouter)
+
+
     app.use(errorMiddleware)
 
 
