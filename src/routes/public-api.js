@@ -13,7 +13,7 @@ publicApi.post('/login', userController.login)
 
 publicApi.post('/register', userController.register)
 
-// publicApi.get('/food', foodController.get)
+publicApi.get('/food', foodController.get)
 
 publicApi.get('/drink', drinkController.get)
 
