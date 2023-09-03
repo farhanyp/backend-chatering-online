@@ -32,38 +32,27 @@ const create = async (req, res, next) => {
 
 const get = async (req, res, next) => {
     try {
-        const resultTemp = await packageService.get();
+        const result = await packageService.get();
 
-        // logger.info(resultTemp.typeImage)
-        // const base64Image = resultTemp.dataImage.toString('base64');
-        const base64Image = resultTemp.dataImage
-        let result = {};
+        const resultCopy = JSON.parse(JSON.stringify(result));
 
-        // if (resultTemp.length > 0) {
-        //     const packagesForRelation = resultTemp.map(a => a.relations);
 
-        //     const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
-        //         .populate('package', 'dataImage typeImage name price description')
-        //         .populate('food', 'dataImage typeImage name qty price description')
-        //         .populate('drink', 'dataImage typeImage name qty price description');
+        function bufferToBase64(buffer) {
+            return Buffer.from(buffer).toString('base64');
+          }
 
-        //     result = {
-        //         packages
-        //     };
-        // } else {
-        //     result = "data kosong";
-        // }
+          for (const data of resultCopy) {
+            if (data.package && data.package.dataImage) {
+              data.package.dataImage = bufferToBase64(data.package.dataImage);
+            }
 
-        // logger.info(result.data.packages[0].package.dataImage.typeImage)
-        // logger.info(result.packages[0].package.dataImage.type)
-        // const base64Image = image.data.toString('base64');
-        // result.packages[0].package.typeImage = "maman"
+            if (data.drink && data.drink.dataImage) {
+                data.drink.dataImage = bufferToBase64(data.drink.dataImage);
+              }
+          }
 
         res.status(200).json({
-            contentType: resultTemp.typeImage,
-            data: base64Image,
-            // data: result
-            // data: result.packages[0].package.typeImage
+            data: resultCopy
         });
     } catch (e) {
         next(e);
