@@ -50,7 +50,7 @@ const create = async (username, request)=>{
 
 const get = async (username, request)=>{
 
-    return Package.find()
+    return Package.findOne()
 
 }
 

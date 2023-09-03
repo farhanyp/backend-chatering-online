@@ -34,25 +34,35 @@ const get = async (req, res, next) => {
     try {
         const resultTemp = await packageService.get();
 
+        // logger.info(resultTemp.typeImage)
+        const base64Image = resultTemp.dataImage.toString('base64');
         let result = {};
 
-        if (resultTemp.length > 0) {
-            const packagesForRelation = resultTemp.map(a => a.relations);
+        // if (resultTemp.length > 0) {
+        //     const packagesForRelation = resultTemp.map(a => a.relations);
 
-            const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
-                .populate('package', 'dataImage typeImage name price description')
-                .populate('food', 'dataImage typeImage name qty price description')
-                .populate('drink', 'dataImage typeImage name qty price description');
+        //     const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
+        //         .populate('package', 'dataImage typeImage name price description')
+        //         .populate('food', 'dataImage typeImage name qty price description')
+        //         .populate('drink', 'dataImage typeImage name qty price description');
 
-            result = {
-                packages
-            };
-        } else {
-            result = "data kosong";
-        }
+        //     result = {
+        //         packages
+        //     };
+        // } else {
+        //     result = "data kosong";
+        // }
+
+        // logger.info(result.data.packages[0].package.dataImage.typeImage)
+        // logger.info(result.packages[0].package.dataImage.type)
+        // const base64Image = image.data.toString('base64');
+        // result.packages[0].package.typeImage = "maman"
 
         res.status(200).json({
-            data: result
+            contentType: resultTemp.typeImage,
+            data: base64Image,
+            // data: result
+            // data: result.packages[0].package.typeImage
         });
     } catch (e) {
         next(e);

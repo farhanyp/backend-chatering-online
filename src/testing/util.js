@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 import { logger } from "../application/logger.js";
 import { User } from "../model/User.js";
-import { Image } from "../model/Image.js";
 import { Food } from "../model/Food.js";
 import path from 'path'
 import { Drink } from "../model/Drink.js";

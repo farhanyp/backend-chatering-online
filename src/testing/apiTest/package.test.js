@@ -50,20 +50,18 @@ describe('GET /api/v1/member/package', () => {
 
     beforeAll(async () => {
         await connectMongoDB()
-        await createPackage()
+        // await createPackage()
         
     });
 
     afterAll(async () => {
-        await deletePackage()
+        // await deletePackage()
         // await closedMongoDB()
     });
 
     test("Should can get package", async()=>{
         const result =  await supertest(app)
-        .get('/api/v1/member/package/')
-
-        logger.info(result)
+        .get('/api/v1/member/package')
 
         expect(result.status).toBe(200)
     })
