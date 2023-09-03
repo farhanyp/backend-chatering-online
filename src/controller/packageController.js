@@ -35,7 +35,8 @@ const get = async (req, res, next) => {
         const resultTemp = await packageService.get();
 
         // logger.info(resultTemp.typeImage)
-        const base64Image = resultTemp.dataImage.toString('base64');
+        // const base64Image = resultTemp.dataImage.toString('base64');
+        const base64Image = resultTemp.dataImage
         let result = {};
 
         // if (resultTemp.length > 0) {
