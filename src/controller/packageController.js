@@ -49,6 +49,10 @@ const get = async (req, res, next) => {
             if (data.drink && data.drink.dataImage) {
                 data.drink.dataImage = bufferToBase64(data.drink.dataImage);
               }
+
+            if (data.food && data.food.dataImage) {
+            data.food.dataImage = bufferToBase64(data.food.dataImage);
+            }
           }
 
         res.status(200).json({
