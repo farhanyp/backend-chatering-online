@@ -48,9 +48,9 @@ const create = async (request)=>{
     })
 }
 
-const get = async (request)=>{
+const get = async ()=>{
 
-    return Order.find()
+    return await Order.find()
 
 }
 

@@ -8,7 +8,7 @@ const createOrderValidation = Joi.object({
     qtyFood: Joi.number().min(1).required(),
     qtyDrink: Joi.number().min(1).optional(),
     totalPrice: Joi.number().min(1).required(),
-    foodId: Joi.string().required(),
+    foodId: Joi.string().optional(),
     drinkId: Joi.string().optional(),
 })
 
