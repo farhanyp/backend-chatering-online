@@ -10,31 +10,52 @@ const create = async (request)=>{
 
     const createRequest = validate(createOrderValidation, request)
 
-    const food = await Food.findOne({_id: createRequest.foodId})
-    const drink = await Drink.findOne({_id: createRequest.drinkId})
-
-    const OperationFood = food.price * createRequest.qtyFood
-    const OperationDrink = drink.price * createRequest.qtyDrink
-    const price = OperationDrink + OperationFood
-    if(price !== createRequest.totalPrice){
-        throw new ResponseError(401, 'Kesalahan dalam harga')
+    if(createRequest.foodId && createRequest.drinkId){
+        const food = await Food.findOne({_id: createRequest.foodId})
+        const drink = await Drink.findOne({_id: createRequest.drinkId})
+    
+        const OperationFood = food.price * createRequest.qtyFood
+        const OperationDrink = drink.price * createRequest.qtyDrink
+        const price = OperationDrink + OperationFood
+        if(price !== createRequest.totalPrice){
+            throw new ResponseError(401, 'Kesalahan dalam harga')
+        }
+    
+        const OperationQtyFood = food.qty - createRequest.qtyFood
+        const OperationQtyDrink = drink.qty - createRequest.qtyDrink
+    
+        if(food.qty < createRequest.qtyFood){
+            throw new ResponseError(401, `Jumlah ${food.name} tidak mencukup`)
+        }
+    
+        if(drink.qty < createRequest.qtyDrink){
+            throw new ResponseError(401, `Jumlah ${drink.name} tidak mencukup`)
+        }
+        await Food.updateOne({_id: createRequest.foodId}, {qty: OperationQtyFood})
+        await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
     }
 
-    const OperationQtyFood = food.qty - createRequest.qtyFood
-    const OperationQtyDrink = drink.qty - createRequest.qtyDrink
+    if(createRequest.foodId && !createRequest.drinkId){
+        const food = await Food.findOne({_id: createRequest.foodId})
+        const OperationFood = food.price * createRequest.qtyFood
 
-    if(food.qty < createRequest.qtyFood){
-        throw new ResponseError(401, `Jumlah ${food.name} tidak mencukup`)
+        const OperationQtyFood = food.qty - createRequest.qtyFood
+        if(food.qty < createRequest.qtyFood){
+            throw new ResponseError(401, `Jumlah ${food.name} tidak mencukup`)
+        }
+        await Food.updateOne({_id: createRequest.foodId}, {qty: OperationQtyFood})
     }
+    if(!createRequest.foodId && createRequest.drinkId){
+        const drink = await Drink.findOne({_id: createRequest.drinkId})
+        const OperationDrink = drink.price * createRequest.qtyDrink
 
-    if(drink.qty < createRequest.qtyDrink){
-        throw new ResponseError(401, `Jumlah ${drink.name} tidak mencukup`)
+        const OperationQtyDrink = drink.qty - createRequest.qtyDrink
+        if(drink.qty < createRequest.qtyDrink){
+            throw new ResponseError(401, `Jumlah ${drink.name} tidak mencukup`)
+        }
+        await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
     }
-    await Food.updateOne({_id: createRequest.foodId}, {qty: OperationQtyFood})
-    await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
-
-
-
+    
     return Order.create({
         dataImage: createRequest.dataImage,
         typeImage: createRequest.typeImage,
