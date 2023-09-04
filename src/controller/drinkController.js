@@ -33,6 +33,18 @@ const get = async (req, res, next) => {
 
         const result = await drinkService.get()
 
+        const resultCopy = JSON.parse(JSON.stringify(result));
+
+        function bufferToBase64(buffer) {
+            return Buffer.from(buffer).toString('base64');
+          }
+
+          for (const data of resultCopy) {
+            if (data && data.dataImage) {
+              data.dataImage = bufferToBase64(data.dataImage);
+            }
+          }
+
         res.status(200).json({
             data: result
         })
