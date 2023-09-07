@@ -13,7 +13,8 @@ const create = async (username, request)=>{
 
 const get = async (username, request)=>{
 
-    return await Food.find()
+    // return await Food.find()
+    return "hai"
 }
 
 const update = async (username, foodId, request) => {
