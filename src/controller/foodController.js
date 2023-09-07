@@ -31,7 +31,7 @@ const create = async (req, res, next) => {
 const get = async (req, res, next) => {
     try{
 
-        // const result = await foodService.get()
+        const result = await foodService.get()
 
         // const resultCopy = JSON.parse(JSON.stringify(result));
 
@@ -46,7 +46,7 @@ const get = async (req, res, next) => {
         //   }
 
         res.status(200).json({
-            data: "resultCopy"
+            data: result
         })
 
     }catch(e){
