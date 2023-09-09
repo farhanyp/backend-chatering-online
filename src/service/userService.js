@@ -26,7 +26,7 @@ const login = async(request) => {
 
     await User.updateOne({username: user.username}, {token: token})
 
-    return User.findOne({username: user.username})
+    return User.findOne({username: user.username}).select('role').select('token')
 }
 
 
