@@ -15,11 +15,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    alamat:{
+    address:{
         type: String,
         required: true
     },
-    nohp:{
+    number:{
         type: String,
         required: true
     },
