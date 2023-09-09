@@ -11,6 +11,18 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    name:{
+        type: String,
+        required: true
+    },
+    alamat:{
+        type: String,
+        required: true
+    },
+    nohp:{
+        type: String,
+        required: true
+    },
     role: {
         type: String,
         required: true,
