@@ -18,6 +18,10 @@ typeImage:{
     type: Number,
     required: true
   },
+  discount:{
+    type: Number,
+    required: true
+  },
   description: {
     type: String,
     required: false

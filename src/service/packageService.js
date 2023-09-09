@@ -10,12 +10,14 @@ import { Drink } from "../model/Drink.js"
 const create = async (username, request)=>{
 
     const createPackageRequest = validate(createPackageValidation, request)
+    logger.info(createPackageRequest)
 
     const packages = await Package.create({
         dataImage: createPackageRequest.dataImage,
         typeImage: createPackageRequest.typeImage,
         name: createPackageRequest.name,
         price: createPackageRequest.price,
+        discount: createPackageRequest.discount,
         description: createPackageRequest.description,
     })
 
