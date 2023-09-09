@@ -14,13 +14,6 @@ const create = async (request)=>{
         const food = await Food.findOne({_id: createRequest.foodId})
         const drink = await Drink.findOne({_id: createRequest.drinkId})
     
-        const OperationFood = food.price * createRequest.qtyFood
-        const OperationDrink = drink.price * createRequest.qtyDrink
-        const price = OperationDrink + OperationFood
-        if(price !== createRequest.totalPrice){
-            throw new ResponseError(401, 'Kesalahan dalam harga')
-        }
-    
         const OperationQtyFood = food.qty - createRequest.qtyFood
         const OperationQtyDrink = drink.qty - createRequest.qtyDrink
     
