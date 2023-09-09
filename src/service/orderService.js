@@ -61,6 +61,7 @@ const create = async (request)=>{
         typeImage: createRequest.typeImage,
         name: createRequest.name,
         address: createRequest.address,
+        phone: createRequest.phone,
         totalPrice: createRequest.totalPrice,
         foodId: createRequest.foodId,
         qtyFood: createRequest.qtyFood,
