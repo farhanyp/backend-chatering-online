@@ -10,7 +10,6 @@ import { Drink } from "../model/Drink.js"
 const create = async (username, request)=>{
 
     const createPackageRequest = validate(createPackageValidation, request)
-    logger.info(createPackageRequest)
 
     const packages = await Package.create({
         dataImage: createPackageRequest.dataImage,
@@ -56,7 +55,7 @@ const get = async (username, request)=>{
 
     const packagesForRelation = onlyPackage.map(a => a.relations);
     const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
-        .populate('package', 'dataImage typeImage name price description')
+        .populate('package', 'dataImage typeImage name price discount description')
         .populate('food', 'dataImage typeImage name qty price description')
         .populate('drink', 'dataImage typeImage name qty price description');
 
