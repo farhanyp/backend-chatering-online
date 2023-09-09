@@ -5,6 +5,7 @@ const createOrderValidation = Joi.object({
     typeImage: Joi.string().min(1).required(),
     name: Joi.string().max(100).required(),
     address: Joi.string().max(100).required(),
+    phone: Joi.string().max(100).required(),
     qtyFood: Joi.number().min(1).optional(),
     qtyDrink: Joi.number().min(1).optional(),
     totalPrice: Joi.number().min(1).required(),
