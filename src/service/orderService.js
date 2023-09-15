@@ -17,13 +17,6 @@ const create = async (request)=>{
         const OperationQtyFood = food.qty - createRequest.qtyFood
         const OperationQtyDrink = drink.qty - createRequest.qtyDrink
     
-        if(food.qty < createRequest.qtyFood){
-            throw new ResponseError(401, `Jumlah ${food.name} tidak mencukup`)
-        }
-    
-        if(drink.qty < createRequest.qtyDrink){
-            throw new ResponseError(401, `Jumlah ${drink.name} tidak mencukup`)
-        }
         await Food.updateOne({_id: createRequest.foodId}, {qty: OperationQtyFood})
         await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
     }
