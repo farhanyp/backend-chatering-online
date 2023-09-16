@@ -147,10 +147,10 @@ const create = async (request, user)=>{
 
 }
 
-const get = async ()=>{
-
+const get = async () => {
     return await Order.find()
-
+        .sort({ "created_at": "desc" })
+        .exec()
 }
 
 export default{

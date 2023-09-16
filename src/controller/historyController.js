@@ -18,14 +18,6 @@ const get = async (req, res, next) => {
             }
         }
 
-        // if(resultCopy.food){
-        //     resultCopy.food.dataImage = bufferToBase64(resultCopy.food.dataImage);
-        // }
-
-        // if(resultCopy.drink){
-        //     resultCopy.drink.dataImage = bufferToBase64(resultCopy.drink.dataImage);
-        // }
-
         res.status(200).json({
             data: resultCopy
         })
