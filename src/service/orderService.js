@@ -79,7 +79,7 @@ const create = async (request, user)=>{
         history.save()
     }
     
-    return UserFind
+    return order
 }
 
 const get = async ()=>{
