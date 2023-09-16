@@ -13,17 +13,6 @@ const create = async (request, user)=>{
 
     const createRequest = validate(createOrderValidation, request)
 
-    if(createRequest.foodId && createRequest.drinkId){
-        const food = await Food.findOne({_id: createRequest.foodId})
-        const drink = await Drink.findOne({_id: createRequest.drinkId})
-    
-        const OperationQtyFood = food.qty - createRequest.qtyFood
-        const OperationQtyDrink = drink.qty - createRequest.qtyDrink
-    
-        await Food.updateOne({_id: createRequest.foodId}, {qty: OperationQtyFood})
-        await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
-    }
-
     if(createRequest.foodId && !createRequest.drinkId){
         const food = await Food.findOne({_id: createRequest.foodId})
         const OperationFood = food.price * createRequest.qtyFood
