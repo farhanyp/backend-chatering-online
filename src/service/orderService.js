@@ -70,8 +70,7 @@ const create = async (request, user)=>{
     })
 
     if(UserFind){
-        UserFind.relations.push(relations._id)
-        UserFind.save()
+        await User.updateOne({_id: user._id}, { $push: { relations: relations._id  } });
     }
 
     if(history){
