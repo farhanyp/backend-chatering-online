@@ -54,7 +54,7 @@ const get = async (username, request)=>{
     const onlyPackage = await Package.find()
 
     const packagesForRelation = onlyPackage.map(a => a.relations);
-    const  packages = await Relation.find({ _id: { $in: packagesForRelation } })
+    const  packages = await Relation.find()
         .populate('package', 'dataImage typeImage name price discount description')
         .populate('food', 'dataImage typeImage name qty price description')
         .populate('drink', 'dataImage typeImage name qty price description');

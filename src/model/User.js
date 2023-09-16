@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+const { ObjectId } = mongoose.Schema;
 import bcrypt from "bcrypt"
 
 const userSchema = new mongoose.Schema({
@@ -27,7 +28,11 @@ const userSchema = new mongoose.Schema({
     token: {
         type: String,
         required: false
-    }
+    },
+    relations: [{
+        type: ObjectId, 
+        ref: 'RelationHistory' 
+    }]
 })
 
 userSchema.pre('save', async function(next){

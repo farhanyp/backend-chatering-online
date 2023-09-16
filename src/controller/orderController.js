@@ -9,13 +9,14 @@ const create = async (req, res, next) => {
     try{
 
         const request = req.body
+        const user = req.user
 
         if(req.file){
             request.dataImage = req.file.buffer
             request.typeImage = req.file.mimetype
         }
 
-        const result = await orderService.create(request)
+        const result = await orderService.create(request, user)
 
 
         res.status(200).json({

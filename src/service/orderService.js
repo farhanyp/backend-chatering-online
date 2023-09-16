@@ -5,8 +5,11 @@ import { Food } from '../model/Food.js'
 import { Drink } from '../model/Drink.js'
 import ResponseError from "../error/response-error.js"
 import { Order } from "../model/Order.js"
+import { RelationHistory } from "../model/RelationUserHistoryOrder.js"
+import { History } from "../model/History.js"
+import { User } from "../model/User.js"
 
-const create = async (request)=>{
+const create = async (request, user)=>{
 
     const createRequest = validate(createOrderValidation, request)
 
@@ -42,7 +45,7 @@ const create = async (request)=>{
         await Drink.updateOne({_id: createRequest.drinkId}, {qty: OperationQtyDrink})
     }
     
-    return Order.create({
+    const order = await Order.create({
         dataImage: createRequest.dataImage,
         typeImage: createRequest.typeImage,
         name: createRequest.name,
@@ -54,6 +57,40 @@ const create = async (request)=>{
         drinkId: createRequest.drinkId,
         qtyDrink: createRequest.qtyDrink
     })
+
+    const history = await History.create({
+        dataImage: createRequest.dataImage,
+        typeImage: createRequest.typeImage,
+        name: createRequest.name,
+        address: createRequest.address,
+        phone: createRequest.phone,
+        totalPrice: createRequest.totalPrice,
+        foodId: createRequest.foodId,
+        qtyFood: createRequest.qtyFood,
+        drinkId: createRequest.drinkId,
+        qtyDrink: createRequest.qtyDrink,
+        status: true,
+        orderId: order._id
+    })
+
+    const UserFind = await User.findOne({_id: user._id})
+
+    const relations = await RelationHistory.create({
+        user: UserFind._id,
+        history: history._id
+    })
+
+    if(UserFind){
+        UserFind.relations.push(relations._id)
+        UserFind.save()
+    }
+
+    if(history){
+        history.relations.push(relations._id)
+        history.save()
+    }
+    
+    return UserFind
 }
 
 const get = async ()=>{
@@ -61,7 +98,6 @@ const get = async ()=>{
     return await Order.find()
 
 }
-
 
 export default{
     create,

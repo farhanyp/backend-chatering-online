@@ -6,6 +6,8 @@ import drinkController from '../controller/drinkController.js'
 import packageController from '../controller/packageController.js'
 import bankController from '../controller/bankController.js'
 import orderController from '../controller/orderController.js'
+import historyController from '../controller/historyController.js'
+import { authMiddleware } from '../middleware/auth-middleware.js'
 
 const publicApi = new express.Router()
 
@@ -21,7 +23,9 @@ publicApi.get('/package', packageController.get)
 
 publicApi.get('/bank', bankController.get)
 
-publicApi.post('/order', upload.single("dataImage"), orderController.create)
+publicApi.post('/order', authMiddleware, upload.single("dataImage"), orderController.create)
+
+publicApi.get('/history', authMiddleware, historyController.get)
 
 export {
     publicApi
