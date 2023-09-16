@@ -21,12 +21,12 @@ const get = async (user)=>{
         
         if(foodForRelations){
             const food = await Food.findOne({_id: foodForRelations})
-            data.food = food
+            data.history.food = food
         }
     
         if(drinkForRelations){
             const drink = await Drink.findOne({_id: drinkForRelations})
-            data.drink = drink
+            data.history.drink = drink
         }
 
     }
