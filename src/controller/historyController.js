@@ -12,22 +12,22 @@ const get = async (req, res, next) => {
             return Buffer.from(buffer).toString('base64');
           }
 
-        for (const data of resultCopy.history) {
+        for (const data of resultCopy) {
             if (data && data.history.dataImage) {
                 data.history.dataImage = bufferToBase64(data.history.dataImage);
             }
         }
 
-        if(resultCopy.food){
-            resultCopy.food.dataImage = bufferToBase64(resultCopy.food.dataImage);
-        }
+        // if(resultCopy.food){
+        //     resultCopy.food.dataImage = bufferToBase64(resultCopy.food.dataImage);
+        // }
 
-        if(resultCopy.drink){
-            resultCopy.drink.dataImage = bufferToBase64(resultCopy.drink.dataImage);
-        }
+        // if(resultCopy.drink){
+        //     resultCopy.drink.dataImage = bufferToBase64(resultCopy.drink.dataImage);
+        // }
 
         res.status(200).json({
-            data: result
+            data: resultCopy
         })
 
     }catch(e){
