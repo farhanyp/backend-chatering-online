@@ -74,8 +74,7 @@ const create = async (request, user)=>{
     }
 
     if(history){
-        history.relations.push(relations._id)
-        history.save()
+        await History.updateOne({_id: history._id}, { $push: { relations: relations._id  } });
     }
     
     return order
