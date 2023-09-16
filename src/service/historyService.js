@@ -13,18 +13,18 @@ const get = async (user)=>{
     if(UserFind){
         const UserFindForRelations = UserFind.relations.map(history => history)
         const  histories = await RelationHistory.find({_id: UserFindForRelations})
-            .populate('history', 'name dataImage typeImage address phone totalPrice foodId qtyFood drinkId qtyDrink status')
+            .populate('history')
 
         data.history = histories
+
         const foodForRelations = histories.map( history => history.history.foodId)
-        const drinkForRelations = histories.map( history => history.history.drinkId)
-        
-        if(foodForRelations){
+        if(foodForRelations[0].length == 0){
             const food = await Food.findOne({_id: foodForRelations})
             data.food = food
         }
-    
-        if(drinkForRelations){
+
+        const drinkForRelations = histories.map( history => history.history.drinkId)
+        if(drinkForRelations[0].length === 0){
             const drink = await Drink.findOne({_id: drinkForRelations})
             data.drink = drink
         }
@@ -32,7 +32,6 @@ const get = async (user)=>{
     }
 
     return data
-
 }
 
 export default{

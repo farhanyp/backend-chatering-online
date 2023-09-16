@@ -6,28 +6,28 @@ const get = async (req, res, next) => {
 
         const result = await historyService.get(user)
 
-        const resultCopy = JSON.parse(JSON.stringify(result));
+        // const resultCopy = JSON.parse(JSON.stringify(result));
 
-        function bufferToBase64(buffer) {
-            return Buffer.from(buffer).toString('base64');
-          }
+        // function bufferToBase64(buffer) {
+        //     return Buffer.from(buffer).toString('base64');
+        //   }
 
-        for (const data of resultCopy.history) {
-            if (data && data.history.dataImage) {
-                data.history.dataImage = bufferToBase64(data.history.dataImage);
-            }
-        }
+        // for (const data of resultCopy.history) {
+        //     if (data && data.history.dataImage) {
+        //         data.history.dataImage = bufferToBase64(data.history.dataImage);
+        //     }
+        // }
 
-        if(resultCopy.food){
-            resultCopy.food.dataImage = bufferToBase64(resultCopy.food.dataImage);
-        }
+        // if(resultCopy.food){
+        //     resultCopy.food.dataImage = bufferToBase64(resultCopy.food.dataImage);
+        // }
 
-        if(resultCopy.drink){
-            resultCopy.drink.dataImage = bufferToBase64(resultCopy.drink.dataImage);
-        }
+        // if(resultCopy.drink){
+        //     resultCopy.drink.dataImage = bufferToBase64(resultCopy.drink.dataImage);
+        // }
 
         res.status(200).json({
-            data: resultCopy
+            data: result
         })
 
     }catch(e){

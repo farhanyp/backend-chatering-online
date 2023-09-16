@@ -38,7 +38,7 @@ const orderSchema = new mongoose.Schema({
     drinkId: [{
         type: ObjectId,
         required: false,
-        ref: 'Food' 
+        ref: 'Drink' 
     }],
     qtyDrink:{
         type: Number,

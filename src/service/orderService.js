@@ -47,37 +47,104 @@ const create = async (request, user)=>{
         qtyDrink: createRequest.qtyDrink
     })
 
-    const history = await History.create({
-        dataImage: createRequest.dataImage,
-        typeImage: createRequest.typeImage,
-        name: createRequest.name,
-        address: createRequest.address,
-        phone: createRequest.phone,
-        totalPrice: createRequest.totalPrice,
-        foodId: createRequest.foodId,
-        qtyFood: createRequest.qtyFood,
-        drinkId: createRequest.drinkId,
-        qtyDrink: createRequest.qtyDrink,
-        status: true,
-        orderId: order._id
-    })
+    if(createRequest.foodId && !createRequest.drinkId){
+        const history = await History.create({
+            dataImage: createRequest.dataImage,
+            typeImage: createRequest.typeImage,
+            name: createRequest.name,
+            address: createRequest.address,
+            phone: createRequest.phone,
+            totalPrice: createRequest.totalPrice,
+            foodId: createRequest.foodId,
+            qtyFood: createRequest.qtyFood,
+            status: true,
+            orderId: order._id
+        })
 
-    const UserFind = await User.findOne({_id: user._id})
+        const UserFind = await User.findOne({_id: user._id})
 
-    const relations = await RelationHistory.create({
-        user: UserFind._id,
-        history: history._id
-    })
+        const relations = await RelationHistory.create({
+            user: UserFind._id,
+            history: history._id
+        })
 
-    if(UserFind){
-        await User.updateOne({_id: user._id}, { $push: { relations: relations._id  } });
+        if(UserFind){
+            await User.updateOne({_id: user._id}, { $push: { relations: relations._id  } });
+        }
+
+        if(history){
+            await History.updateOne({_id: history._id}, { $push: { relations: relations._id  } });
+        }
+        
+        return order
     }
 
-    if(history){
-        await History.updateOne({_id: history._id}, { $push: { relations: relations._id  } });
-    }
+    if(!createRequest.foodId && createRequest.drinkId){
+        const history = await History.create({
+            dataImage: createRequest.dataImage,
+            typeImage: createRequest.typeImage,
+            name: createRequest.name,
+            address: createRequest.address,
+            phone: createRequest.phone,
+            totalPrice: createRequest.totalPrice,
+            drinkId: createRequest.drinkId,
+            qtyDrink: createRequest.qtyDrink,
+            status: true,
+            orderId: order._id
+        })
+
+        const UserFind = await User.findOne({_id: user._id})
+
+        const relations = await RelationHistory.create({
+            user: UserFind._id,
+            history: history._id
+        })
     
-    return order
+        if(UserFind){
+            await User.updateOne({_id: user._id}, { $push: { relations: relations._id  } });
+        }
+    
+        if(history){
+            await History.updateOne({_id: history._id}, { $push: { relations: relations._id  } });
+        }
+        
+        return order
+    }
+
+    if(createRequest.drinkId && createRequest.foodId){
+        const history = await History.create({
+            dataImage: createRequest.dataImage,
+            typeImage: createRequest.typeImage,
+            name: createRequest.name,
+            address: createRequest.address,
+            phone: createRequest.phone,
+            totalPrice: createRequest.totalPrice,
+            foodId: createRequest.foodId,
+            qtyFood: createRequest.qtyFood,
+            drinkId: createRequest.drinkId,
+            qtyDrink: createRequest.qtyDrink,
+            status: true,
+            orderId: order._id
+        })
+
+        const UserFind = await User.findOne({_id: user._id})
+
+        const relations = await RelationHistory.create({
+            user: UserFind._id,
+            history: history._id
+        })
+    
+        if(UserFind){
+            await User.updateOne({_id: user._id}, { $push: { relations: relations._id  } });
+        }
+    
+        if(history){
+            await History.updateOne({_id: history._id}, { $push: { relations: relations._id  } });
+        }
+        
+        return order
+    }
+
 }
 
 const get = async ()=>{

@@ -28,7 +28,7 @@ const historySchema = new mongoose.Schema({
     },
     foodId: [{
         type: ObjectId,
-        required: true,
+        required: false,
         ref: 'Food' 
     }],
     qtyFood:{
@@ -38,7 +38,7 @@ const historySchema = new mongoose.Schema({
     drinkId: [{
         type: ObjectId,
         required: false,
-        ref: 'Food' 
+        ref: 'Drink' 
     }],
     qtyDrink:{
         type: Number,
