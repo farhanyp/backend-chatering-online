@@ -8,19 +8,16 @@ const get = async (user) => {
     const UserFind = await User.findOne({ _id: user._id });
 
     if (UserFind) {
-        const UserFindForRelations = UserFind.relations.map((history) => history);
+        const relationIds = UserFind.relations.map((history) => history);
 
-        const histories = await RelationHistory.find({ _id: UserFindForRelations })
-            .populate('history')
-            .lean();
-
-        histories.forEach((history) => {
-            if (history.history.created_at instanceof Date) {
-                history.history.created_at = history.history.created_at.getTime();
-            }
-        });
-
-        histories.sort((a, b) => b.history.created_at - a.history.created_at);
+        const histories = await RelationHistory.find({ _id: { $in: relationIds } })
+        .populate({
+            path: 'history',
+            populate: [
+              { path: 'foodId' },
+              { path: 'drinkId' },
+            ],
+          })
 
         return histories;
     }
