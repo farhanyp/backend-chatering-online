@@ -12,11 +12,11 @@ const get = async (req, res, next) => {
             return Buffer.from(buffer).toString('base64');
           }
 
-        // for (const data of resultCopy) {
-        //     if (data && data.history.dataImage) {
-        //         data.history.dataImage = bufferToBase64(data.history.dataImage);
-        //     }
-        // }
+        for (const data of resultCopy) {
+            if (data && data.history.dataImage) {
+                data.history.dataImage = bufferToBase64(data.history.dataImage);
+            }
+        }
 
         res.status(200).json({
             data: resultCopy
