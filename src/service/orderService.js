@@ -148,9 +148,11 @@ const create = async (request, user)=>{
 }
 
 const get = async () => {
-    return await Order.find()
-        .sort({ "created_at": "desc" })
-        .exec()
+    return await Order.find().populate([
+        { path: 'foodId' },
+        { path: 'drinkId' }
+    ])
+    .sort({ "created_at": "desc" })
 }
 
 export default{
